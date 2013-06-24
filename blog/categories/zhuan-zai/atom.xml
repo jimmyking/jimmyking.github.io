@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 转载 | Jimmy.King's Blog]]></title>
+  <link href="http://jimmyking.github.io/blog/categories/zhuan-zai/atom.xml" rel="self"/>
+  <link href="http://jimmyking.github.io/"/>
+  <updated>2013-06-24T15:47:03+08:00</updated>
+  <id>http://jimmyking.github.io/</id>
+  <author>
+    <name><![CDATA[Jimmy.King]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用Octopress搭建Github博客]]></title>
+    <link href="http://jimmyking.github.io/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke/"/>
+    <updated>2013-06-24T15:41:00+08:00</updated>
+    <id>http://jimmyking.github.io/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
