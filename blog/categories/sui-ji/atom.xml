@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 随记 | Jimmy.King's Blog]]></title>
+  <link href="http://jimmyking.github.io/blog/categories/sui-ji/atom.xml" rel="self"/>
+  <link href="http://jimmyking.github.io/"/>
+  <updated>2013-06-24T17:19:14+08:00</updated>
+  <id>http://jimmyking.github.io/</id>
+  <author>
+    <name><![CDATA[Jimmy.King]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用Octopress搭建Github博客]]></title>
+    <link href="http://jimmyking.github.io/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke/"/>
+    <updated>2013-06-24T15:41:00+08:00</updated>
+    <id>http://jimmyking.github.io/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke</id>
+    <content type="html"><![CDATA[<h3>Step1. 建立自己的<a href="https://github.com/new">Github page:</a></h3>
+
+<p>首先创建一个github repository，在Repository name的地方填入username.github.io</p>
+
+<h3>Step2. <a href="http://octopress.org/docs/setup/">Setup Octopress</a></h3>
+
+<p>首先你需要安装Git and Ruby(1.9.3)</p>
+
+<p>然后：
+<code>
+git clone git://github.com/imathis/octopress.git octopress
+cd octopress
+gem install bundler
+bundle install
+rake install
+</code></p>
+
+<p>如果执行<code>rake install</code>命令报bundle的版本异常的话，可以使用<code>bundle exec rake install</code></p>
+
+<h3>Step3. <a href="http://octopress.org/docs/deploying/github/">部署octopress到Github Pages</a></h3>
+
+<p>执行名称如下：
+<code>
+bundle exec rake setup_github_pages
+bundle exec rake generate
+bundle exec deploy
+</code></p>
+
+<p>注意在执行<code>rake setup_github_pages</code>时一定要输入正确的github的repository地址。</p>
+
+<p>我第一次部署老是报没有找到对应的repository地址的错误。执行这个命令时会有一个提示，这个提示的地址中最后缺少了<code>.git</code>。当然如果地址填写错误我们还是有办法补救的。我们可以修改<code>.git/config</code>文件找到对应的地方修改之就可以了。</p>
+
+<p>除了部署你的Github pages,我们还需要将代码也保存到repository中
+<code>
+git add .
+git commit -m 'first deploy'
+git push origin source
+</code></p>
+
+<p>这样我们的代码将push到source分支中，而pages的代码则在master分支中。</p>
+
+<h3>Setp4. <a href="http://octopress.org/docs/configuring/">设置博客参数</a></h3>
+
+<p>这里可以修改标题、子标题、作者等信息</p>
+
+<h3>Setp5. <a href="http://octopress.org/docs/blogging/">写博客</a></h3>
+
+<p>执行<code>bundle exec rake 'new_post[title]'</code>将会在生成对应post的MD文档,它就是你写博客的地方了。</p>
+
+<p>写完post之后执行</p>
+
+<p><code>
+bundle exec rake generate
+bundle exec rake watch
+bundle exec rake preview
+</code></p>
+
+<p>打开<a href="http://localhost:4000">浏览器</a>查看预览</p>
+
+<p>最后部署</p>
+
+<p><code>
+git add .
+git commit -m "add a post"
+git push
+bundle exec rake deploy
+</code></p>
+
+<h3>Tips. <a href="http://octopress.org/docs/updating/">更新octopress</a></h3>
+
+<p>octopress在不断更新有时我们需要更新octopress到最新的版本，执行如下命令更新octopress</p>
+
+<p><code>
+git pull origin master
+bundle install
+bundle exec rake update_source
+bundle exec update_style
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
