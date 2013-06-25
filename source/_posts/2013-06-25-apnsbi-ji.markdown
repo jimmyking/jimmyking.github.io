@@ -1,0 +1,42 @@
+---
+layout: post
+title: "APNS笔记"
+date: 2013-06-25 14:27
+comments: true
+categories: [随记,iOS]
+---
+APNS的相关介绍及使用我就不再写了[raywenderlich.com](http://www.raywenderlich.com/)上面有非常详细的教程[part1](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1),[part2](http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2)
+
+由于此教程使用的APNS服务端是php写的。由于我在实际项目中APNS服务端使用的是java，所以此教程中在怎样生成APNS证书的说明对我并不适用。
+  
+顺带推荐下一个非常不错的java APNS开源组件[java-apns](https://github.com/notnoop/java-apns)。
+
+还是进入正题，在生成证书前我们需要在[iOS Dev Center](https://developer.apple.com/devcenter/ios/index.action)中配置某个APP ID的push notification功能。按照上文教程中得步骤我们将会得到一下文件(已配置开发证书为例)
+
+```
+CertificateSigningRequest.certSigningRequest
+test.p12(在钥匙串中导出的私钥)
+aps_development.cer（申请push证书后下载得到）
+```
+####Step1: 将aps_development.cer转换成aps_development.pem格式
+
+```
+openssl x509 -in aps_development.cer -inform DER -out aps_development.pem -outform PEM
+```
+
+####Step2: 将test.p12转换成pem格式，此时需要输入密码
+
+```
+openssl pkcs12 -nocerts -out test.pem -in test.p12
+```
+
+####Step3: 得到最终在java中使用的证书文件aps_development.p12
+
+```
+openssl pkcs12 -export -in aps_development.pem -inkey test.pem -certfile CertificateSigningRequest.certSigningRequest -name "aps_development" -out aps_development.p12
+```
+
+生产环境重复以上步骤即可。
+
+
+
