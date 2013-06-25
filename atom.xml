@@ -4,7 +4,7 @@
   <title><![CDATA[Jimmy.King's Blog]]></title>
   <link href="http://jimmyking.github.io/atom.xml" rel="self"/>
   <link href="http://jimmyking.github.io/"/>
-  <updated>2013-06-24T17:19:14+08:00</updated>
+  <updated>2013-06-25T14:57:53+08:00</updated>
   <id>http://jimmyking.github.io/</id>
   <author>
     <name><![CDATA[Jimmy.King]]></name>
@@ -12,6 +12,49 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[APNS笔记]]></title>
+    <link href="http://jimmyking.github.io/blog/2013/06/25/apnsbi-ji/"/>
+    <updated>2013-06-25T14:27:00+08:00</updated>
+    <id>http://jimmyking.github.io/blog/2013/06/25/apnsbi-ji</id>
+    <content type="html"><![CDATA[<p>APNS的相关介绍及使用我就不再写了<a href="http://www.raywenderlich.com/">raywenderlich.com</a>上面有非常详细的教程<a href="http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1">part1</a>,<a href="http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2">part2</a></p>
+
+<p>由于此教程使用的APNS服务端是php写的。由于我在实际项目中APNS服务端使用的是java，所以此教程中在怎样生成APNS证书的说明对我并不适用。</p>
+
+<p>顺带推荐下一个非常不错的java APNS开源组件<a href="https://github.com/notnoop/java-apns">java-apns</a>。</p>
+
+<p>还是进入正题，在生成证书前我们需要在<a href="https://developer.apple.com/devcenter/ios/index.action">iOS Dev Center</a>中配置某个APP ID的push notification功能。按照上文教程中得步骤我们将会得到一下文件(已配置开发证书为例)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CertificateSigningRequest.certSigningRequest
+</span><span class='line'>test.p12(在钥匙串中导出的私钥)
+</span><span class='line'>aps_development.cer（申请push证书后下载得到）</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Step1: 将aps_development.cer转换成aps_development.pem格式</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>openssl x509 -in aps_development.cer -inform DER -out aps_development.pem -outform PEM</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Step2: 将test.p12转换成pem格式，此时需要输入密码</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>openssl pkcs12 -nocerts -out test.pem -in test.p12</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Step3: 得到最终在java中使用的证书文件aps_development.p12</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>openssl pkcs12 -export -in aps_development.pem -inkey test.pem -certfile CertificateSigningRequest.certSigningRequest -name "aps_development" -out aps_development.p12</span></code></pre></td></tr></table></div></figure>
+
+
+<p>生产环境重复以上步骤即可。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用Octopress搭建Github博客]]></title>

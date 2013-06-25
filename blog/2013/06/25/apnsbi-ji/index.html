@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Jimmy.King's Blog</title>
+  <title>APNS笔记 - Jimmy.King's Blog</title>
   <meta name="author" content="Jimmy.King">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://jimmyking.github.io">
+  <link rel="canonical" href="http://jimmyking.github.io/blog/2013/06/25/apnsbi-ji">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Jimmy.King's Blog" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/06/25/apnsbi-ji/">APNS笔记</a></h1>
+      <h1 class="entry-title">APNS笔记</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><p>APNS的相关介绍及使用我就不再写了<a href="http://www.raywenderlich.com/">raywenderlich.com</a>上面有非常详细的教程<a href="http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1">part1</a>,<a href="http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2">part2</a></p>
+<div class="entry-content"><p>APNS的相关介绍及使用我就不再写了<a href="http://www.raywenderlich.com/">raywenderlich.com</a>上面有非常详细的教程<a href="http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1">part1</a>,<a href="http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2">part2</a></p>
 
 <p>由于此教程使用的APNS服务端是php写的。由于我在实际项目中APNS服务端使用的是java，所以此教程中在怎样生成APNS证书的说明对我并不适用。</p>
 
@@ -130,22 +127,16 @@
 
 <p>生产环境重复以上步骤即可。</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke/">使用Octopress搭建Github博客</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jimmy.King</span></span>
+
+      
 
 
 
@@ -157,125 +148,38 @@
   
 
 
-<time datetime="2013-06-24T15:41:00+08:00" pubdate data-updated="true">Jun 24<span>th</span>, 2013</time>
-        
-      </p>
+<time datetime="2013-06-25T14:27:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/sui-ji/'>随记</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jimmyking.github.io/blog/2013/06/25/apnsbi-ji/" data-via="" data-counturl="http://jimmyking.github.io/blog/2013/06/25/apnsbi-ji/" >Tweet</a>
+  
+  
+  
+</div>
 
-
-  <div class="entry-content"><h3>Step1. 建立自己的<a href="https://github.com/new">Github page:</a></h3>
-
-<p>首先创建一个github repository，在Repository name的地方填入username.github.io</p>
-
-<h3>Step2. <a href="http://octopress.org/docs/setup/">Setup Octopress</a></h3>
-
-<p>首先你需要安装Git and Ruby(1.9.3)</p>
-
-<p>然后：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'>cd octopress
-</span><span class='line'>gem install bundler
-</span><span class='line'>bundle install
-</span><span class='line'>rake install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果执行<code>rake install</code>命令报bundle的版本异常的话，可以使用<code>bundle exec rake install</code></p>
-
-<h3>Step3. <a href="http://octopress.org/docs/deploying/github/">部署octopress到Github Pages</a></h3>
-
-<p>执行名称如下：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec rake setup_github_pages
-</span><span class='line'>bundle exec rake generate
-</span><span class='line'>bundle exec deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意在执行<code>rake setup_github_pages</code>时一定要输入正确的github的repository地址。</p>
-
-<p>我第一次部署老是报没有找到对应的repository地址的错误。执行这个命令时会有一个提示，这个提示的地址中最后缺少了<code>.git</code>。当然如果地址填写错误我们还是有办法补救的。我们可以修改<code>.git/config</code>文件找到对应的地方修改之就可以了。</p>
-
-<p>除了部署你的Github pages,我们还需要将代码也保存到repository中</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git commit -m 'first deploy'
-</span><span class='line'>git push origin source</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样我们的代码将push到source分支中，而pages的代码则在master分支中。</p>
-
-<h3>Setp4. <a href="http://octopress.org/docs/configuring/">设置博客参数</a></h3>
-
-<p>这里可以修改标题、子标题、作者等信息</p>
-
-<h3>Setp5. <a href="http://octopress.org/docs/blogging/">写博客</a></h3>
-
-<p>执行<code>bundle exec rake 'new_post[title]'</code>将会在生成对应post的MD文档,它就是你写博客的地方了。</p>
-
-<p>写完post之后执行</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec rake generate
-</span><span class='line'>bundle exec rake watch
-</span><span class='line'>bundle exec rake preview</span></code></pre></td></tr></table></div></figure>
-
-
-<p>打开<a href="http://localhost:4000">浏览器</a>查看预览</p>
-
-<p>最后部署</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git commit -m "add a post"
-</span><span class='line'>git push
-</span><span class='line'>bundle exec rake deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Tips. <a href="http://octopress.org/docs/updating/">更新octopress</a></h3>
-
-<p>octopress在不断更新有时我们需要更新octopress到最新的版本，执行如下命令更新octopress</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git pull origin master
-</span><span class='line'>bundle install
-</span><span class='line'>bundle exec rake update_source
-</span><span class='line'>bundle exec update_style</span></code></pre></td></tr></table></div></figure>
-
-
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke/" title="Previous Post: 使用Octopress搭建Github博客">&laquo; 使用Octopress搭建Github博客</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -299,6 +203,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
