@@ -4,7 +4,7 @@
   <title><![CDATA[Jimmy.King's Blog]]></title>
   <link href="http://jimmyking.github.io/atom.xml" rel="self"/>
   <link href="http://jimmyking.github.io/"/>
-  <updated>2013-06-25T14:57:53+08:00</updated>
+  <updated>2013-07-02T14:12:54+08:00</updated>
   <id>http://jimmyking.github.io/</id>
   <author>
     <name><![CDATA[Jimmy.King]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用dispatch_once创建单例]]></title>
+    <link href="http://jimmyking.github.io/blog/2013/07/02/dispatch-once/"/>
+    <updated>2013-07-02T14:04:00+08:00</updated>
+    <id>http://jimmyking.github.io/blog/2013/07/02/dispatch-once</id>
+    <content type="html"><![CDATA[<p>今天在看<a href="https://github.com/brunow/BWStatusBarOverlay">BWStatusBarOverlay</a>的源码时发现他在实例化BWStatusBarOverlay时使用了单例模式。<br/>
+代码如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+ (BWStatusBarOverlay *)shared {
+</span><span class='line'>    static dispatch_once_t pred = 0;
+</span><span class='line'>    __strong static id _sharedObject = nil;
+</span><span class='line'>    dispatch_once(&pred, ^{
+</span><span class='line'>        _sharedObject = [[self alloc] init];
+</span><span class='line'>    });
+</span><span class='line'>    return _sharedObject;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>创建单例关键使用到的方法就是dispatch_once函数。</p>
+
+<p>函数<code>void dispatch_once( dispatch_once_t *predicate, dispatch_block_t block);</code></p>
+
+<p>其中第一个参数predicate，该参数是检查后面第二个参数所代表的代码块是否被调用的谓词，第二个参数则是在整个应用程序中只会被调用一次的代码块。dispach_once函数中的代码块只会被执行一次，而且还是线程安全的。</p>
+
+<p>通过这个函数我们就可以轻松的创建单例模式了:)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[APNS笔记]]></title>

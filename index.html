@@ -9,7 +9,16 @@
   <meta name="author" content="Jimmy.King">
 
   
-  <meta name="description" content="APNS的相关介绍及使用我就不再写了raywenderlich.com上面有非常详细的教程part1,part2 由于此教程使用的APNS服务端是php写的。由于我在实际项目中APNS服务端使用的是java，所以此教程中在怎样生成APNS证书的说明对我并不适用。 顺带推荐下一个非常不错的java &hellip;">
+  <meta name="description" content="今天在看BWStatusBarOverlay的源码时发现他在实例化BWStatusBarOverlay时使用了单例模式。
+代码如下： 1
+2
+3
+4
+5
+6
+7
+8
++ (BWStatusBarOverlay *)shared { static dispatch_once_t pred = 0; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -38,8 +47,6 @@
   <header role="banner"><hgroup>
   <h1><a href="/">Jimmy.King's Blog</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
-  
 </hgroup>
 
 </header>
@@ -65,6 +72,69 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/02/dispatch-once/">使用dispatch_once创建单例</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-02T14:04:00+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天在看<a href="https://github.com/brunow/BWStatusBarOverlay">BWStatusBarOverlay</a>的源码时发现他在实例化BWStatusBarOverlay时使用了单例模式。<br/>
+代码如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+ (BWStatusBarOverlay *)shared {
+</span><span class='line'>    static dispatch_once_t pred = 0;
+</span><span class='line'>    __strong static id _sharedObject = nil;
+</span><span class='line'>    dispatch_once(&pred, ^{
+</span><span class='line'>        _sharedObject = [[self alloc] init];
+</span><span class='line'>    });
+</span><span class='line'>    return _sharedObject;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>创建单例关键使用到的方法就是dispatch_once函数。</p>
+
+<p>函数<code>void dispatch_once( dispatch_once_t *predicate, dispatch_block_t block);</code></p>
+
+<p>其中第一个参数predicate，该参数是检查后面第二个参数所代表的代码块是否被调用的谓词，第二个参数则是在整个应用程序中只会被调用一次的代码块。dispach_once函数中的代码块只会被执行一次，而且还是线程安全的。</p>
+
+<p>通过这个函数我们就可以轻松的创建单例模式了:)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -281,6 +351,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/02/dispatch-once/">使用dispatch_once创建单例</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/25/apnsbi-ji/">APNS笔记</a>

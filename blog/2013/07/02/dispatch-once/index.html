@@ -5,14 +5,20 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Jimmy.King's Blog</title>
+  <title>使用dispatch_once创建单例 - Jimmy.King's Blog</title>
   <meta name="author" content="Jimmy.King">
 
   
-  <meta name="description" content="Blog Archive 2013 使用dispatch_once创建单例
-Jul 02 2013 posted in iOS APNS笔记
-Jun 25 2013 posted in iOS, 随记 使用Octopress搭建Github博客
-Jun 24 2013 posted in 随记 &hellip;">
+  <meta name="description" content="今天在看BWStatusBarOverlay的源码时发现他在实例化BWStatusBarOverlay时使用了单例模式。
+代码如下： 1
+2
+3
+4
+5
+6
+7
+8
++ (BWStatusBarOverlay *)shared { static dispatch_once_t pred = 0; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +27,7 @@ Jun 24 2013 posted in 随记 &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://jimmyking.github.io/blog/archives">
+  <link rel="canonical" href="http://jimmyking.github.io/blog/2013/07/02/dispatch-once">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Jimmy.King's Blog" type="application/atom+xml">
@@ -65,63 +71,111 @@ Jun 24 2013 posted in 随记 &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">使用dispatch_once创建单例</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-02T14:04:00+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>今天在看<a href="https://github.com/brunow/BWStatusBarOverlay">BWStatusBarOverlay</a>的源码时发现他在实例化BWStatusBarOverlay时使用了单例模式。<br/>
+代码如下：</p>
 
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/07/02/dispatch-once/">使用dispatch_once创建单例</a></h1>
-<time datetime="2013-07-02T14:04:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>02</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/06/25/apnsbi-ji/">APNS笔记</a></h1>
-<time datetime="2013-06-25T14:27:00+08:00" pubdate><span class='month'>Jun</span> <span class='day'>25</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/sui-ji/'>随记</a></span>
-</footer>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+ (BWStatusBarOverlay *)shared {
+</span><span class='line'>    static dispatch_once_t pred = 0;
+</span><span class='line'>    __strong static id _sharedObject = nil;
+</span><span class='line'>    dispatch_once(&pred, ^{
+</span><span class='line'>        _sharedObject = [[self alloc] init];
+</span><span class='line'>    });
+</span><span class='line'>    return _sharedObject;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>创建单例关键使用到的方法就是dispatch_once函数。</p>
 
+<p>函数<code>void dispatch_once( dispatch_once_t *predicate, dispatch_block_t block);</code></p>
 
+<p>其中第一个参数predicate，该参数是检查后面第二个参数所代表的代码块是否被调用的谓词，第二个参数则是在整个应用程序中只会被调用一次的代码块。dispach_once函数中的代码块只会被执行一次，而且还是线程安全的。</p>
 
-<article>
-  
-<h1><a href="/blog/2013/06/24/shi-yong-octopressda-jian-githubbo-ke/">使用Octopress搭建Github博客</a></h1>
-<time datetime="2013-06-24T15:41:00+08:00" pubdate><span class='month'>Jun</span> <span class='day'>24</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/sui-ji/'>随记</a></span>
-</footer>
-
-
-</article>
-
+<p>通过这个函数我们就可以轻松的创建单例模式了:)</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Jimmy.King</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-02T14:04:00+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jimmyking.github.io/blog/2013/07/02/dispatch-once/" data-via="" data-counturl="http://jimmyking.github.io/blog/2013/07/02/dispatch-once/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/25/apnsbi-ji/" title="Previous Post: APNS笔记">&laquo; APNS笔记</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
